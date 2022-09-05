@@ -1,9 +1,7 @@
 resource "azurerm_resource_group" "rg" {
   name     = "rg07"
   location = "West Europe"
-  tags{
-    environment = "prod"
-  }
+ 
 }
 
 resource "azurerm_service_plan" "asp" {
@@ -17,9 +15,7 @@ resource "azurerm_service_plan" "asp" {
     size = "s1"
     
   }
-  tags = {
-    environment = "prod"
-  }
+  
 }
 resource "azurerm_app_service" "as" {
   name                = "as07"
@@ -31,8 +27,6 @@ resource "azurerm_app_service" "as" {
     dotnet_framework_version = "v4.0"
     scm_type                 = "LocalGit"
   }
- tags = {
-    environment = "prod"
-  }
+ }
  
-}
+

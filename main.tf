@@ -4,29 +4,19 @@ resource "azurerm_resource_group" "rg" {
  
 }
 
-resource "azurerm_service_plan" "azureserviceplan" {
-  name                = "asp07"
+resource "azurerm_service_plan" "example" {
+  name                = "aservicep"
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
   os_type             = "Linux"
-  reserved            = true
-  sku{
-    tier = "Standard"
-    size = "s1"
-    
-  }
-  
+  sku_name            = "P1v2"
 }
-resource "azurerm_app_service" "azureappservice" {
-  name                = "as07"
-  location            = azurerm_resource_group.rg.location
+
+resource "azurerm_linux_web_app" "webappline" {
+  name                = "alinewebapp07"
   resource_group_name = azurerm_resource_group.rg.name
-  app_service_plan_id = azurerm_app_service_plan.azureserviceplan.id
+  location            = azurerm_service_plan.example.location
+  service_plan_id     = azurerm_service_plan.example.id
 
-  site_config {
-    dotnet_framework_version = "v4.0"
-    scm_type                 = "LocalGit"
-  }
- }
- 
-
+  site_config {}
+}
